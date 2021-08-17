@@ -49,6 +49,11 @@ function Player:loadAssets()
         self.animation.jump.img[i] = love.graphics.newImage("assets/player/jump/"..i..".png")
     end
 
+    self.animation.fall = {total = 2, current = 1, img = {}}
+    for i=1, self.animation.fall.total do
+        self.animation.fall.img[i] = love.graphics.newImage("assets/player/fall/"..i..".png")
+    end
+
     self.animation.draw = self.animation.idle.img[1]
     self.animation.width = self.animation.draw:getWidth()
     self.animation.height = self.animation.draw:getHeight()
@@ -70,8 +75,10 @@ end
 
 
 function Player:setState()
-    if not self.grounded then
+    if not self.grounded and (self.yVel < 0) then
         self.state = "jump"
+    elseif not self.grounded and (self.yVel > 0) then
+        self.state = "fall"
     elseif self.xVel ~= 0 then
         self.state = "run"
     else
