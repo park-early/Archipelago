@@ -1,6 +1,7 @@
 local STI = require("sti")
 require("player")
 require("coin")
+require("gui")
 love.graphics.setDefaultFilter("nearest", "nearest")
 
 function love.load()
@@ -12,6 +13,7 @@ function love.load()
     background1 = love.graphics.newImage("assets/bg_tilesets/SET1_bakcground_night1.png")
     background2 = love.graphics.newImage("assets/bg_tilesets/SET1_bakcground_night2.png")
     background3 = love.graphics.newImage("assets/bg_tilesets/SET1_bakcground_night3.png")
+    GUI:load()
     Player:load()
     Coin.new(300, 200)
     Coin.new(400, 200)
@@ -24,6 +26,7 @@ function love.update(dt)
     World:update(dt)
     Player:update(dt)
     Coin:updateAll(dt)
+    GUI:update(dt)
 end
 
 
@@ -40,6 +43,7 @@ function love.draw()
     Coin.drawAll()
 
     love.graphics.pop()
+    GUI:draw()
 end
 
 
