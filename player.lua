@@ -12,6 +12,7 @@ function Player:load()
     self.friction = 3500
     self.gravity = 1500
     self.jumpAmount = -500
+    self.coins = 0
 
     self.graceTime = 0
     self.graceDuration = 0.1
@@ -199,6 +200,12 @@ function Player:endContact(a, b, collision)
             self.grounded = false
         end
     end
+end
+
+
+
+function Player:incrementCoins()
+    self.coins = self.coins + 1
 end
 
 

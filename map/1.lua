@@ -20,7 +20,7 @@ return {
       spacing = 0,
       margin = 0,
       columns = 34,
-      image = "../assets/SET1_Mainlev_build.png",
+      image = "../assets/bg_tilesets/SET1_Mainlev_build.png",
       imagewidth = 544,
       imageheight = 480,
       objectalignment = "unspecified",

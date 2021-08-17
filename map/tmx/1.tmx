@@ -4,7 +4,7 @@
   <export target="../1..lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" name="SET1_Mainlev_build" tilewidth="16" tileheight="16" tilecount="1020" columns="34">
-  <image source="../../assets/SET1_Mainlev_build.png" width="544" height="480"/>
+  <image source="../../assets/bg_tilesets/SET1_Mainlev_build.png" width="544" height="480"/>
  </tileset>
  <layer id="1" name="ground" width="40" height="23" locked="1">
   <data encoding="csv">
