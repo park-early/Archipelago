@@ -1,6 +1,7 @@
-Coin = {}
+local Coin = {}
 Coin.__index = Coin
-ActiveCoins = {}
+local ActiveCoins = {}
+local Player = require("player")
 
 function Coin.new(x,y)
     local instance = setmetatable({}, Coin)
@@ -90,3 +91,6 @@ function Coin:remove()
         end
     end
 end
+
+
+return Coin

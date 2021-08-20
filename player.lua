@@ -1,4 +1,4 @@
-Player = {}
+local Player = {}
 
 function Player:load()
     self.x = 100
@@ -268,3 +268,6 @@ function Player:draw()
     love.graphics.draw(self.animation.draw, self.x, self.y, 0, scaleX, 1, self.animation.width / 2, self.animation.height / 2)
     love.graphics.setColor(1,1,1,1)
 end
+
+
+return Player

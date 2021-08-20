@@ -1,10 +1,11 @@
-Spike = {img = love.graphics.newImage("assets/interactable/spike/spike.png")}
+local Spike = {img = love.graphics.newImage("assets/interactable/spike/spike.png")}
 Spike.__index = Spike
 
 Spike.width = Spike.img:getWidth()
 Spike.height = Spike.img:getHeight()
 
-ActiveSpikes = {}
+local ActiveSpikes = {}
+local Player = require("player")
 
 function Spike.new(x,y)
     local instance = setmetatable({}, Spike)
@@ -52,3 +53,6 @@ function Spike.beginContact(a, b, collision)
         end
     end
 end
+
+
+return Spike

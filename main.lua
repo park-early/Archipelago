@@ -1,9 +1,9 @@
 love.graphics.setDefaultFilter("nearest", "nearest")
 local STI = require("sti")
-require("player")
-require("coin")
-require("gui")
-require("spike")
+local Player = require("player")
+local Coin = require("coin")
+local GUI = require("gui")
+local Spike = require("spike")
 
 function love.load()
     Map = STI("map/1.lua", {"box2d"})
