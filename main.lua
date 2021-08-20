@@ -1,8 +1,9 @@
+love.graphics.setDefaultFilter("nearest", "nearest")
 local STI = require("sti")
 require("player")
 require("coin")
 require("gui")
-love.graphics.setDefaultFilter("nearest", "nearest")
+require("spike")
 
 function love.load()
     Map = STI("map/1.lua", {"box2d"})
@@ -18,6 +19,7 @@ function love.load()
     Coin.new(300, 200)
     Coin.new(400, 200)
     Coin.new(500, 200)
+    Spike.new(200, 325)
 end
 
 
@@ -26,6 +28,7 @@ function love.update(dt)
     World:update(dt)
     Player:update(dt)
     Coin:updateAll(dt)
+    Spike:updateAll(dt)
     GUI:update(dt)
 end
 
@@ -41,6 +44,7 @@ function love.draw()
 
     Player:draw()
     Coin.drawAll()
+    Spike.drawAll()
 
     love.graphics.pop()
     GUI:draw()
@@ -56,6 +60,7 @@ end
 
 function beginContact(a, b, collision)
     if Coin.beginContact(a, b, collision) then return end
+    if Spike.beginContact(a, b, collision) then return end
     Player:beginContact(a, b, collision)
 end
 

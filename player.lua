@@ -3,6 +3,8 @@ Player = {}
 function Player:load()
     self.x = 100
     self.y = 0
+    self.startX = self.x
+    self.startY = self.y
     self.width = 20
     self.height = 60
     self.xVel = 0
@@ -13,10 +15,19 @@ function Player:load()
     self.gravity = 1500
     self.jumpAmount = -500
     self.coins = 0
+    self.health = {current = 3, max = 3}
+
+    self.colour = {
+        red = 1,
+        green = 1,
+        blue = 1,
+        speed = 3
+    }
 
     self.graceTime = 0
     self.graceDuration = 0.1
 
+    self.alive = true
     self.grounded = false
     self.hasDoubleJump = false
 
@@ -64,6 +75,7 @@ end
 
 
 function Player:update(dt)
+    self:respawn()
     self:setState()
     self:setDirection()
     self:animate(dt)
@@ -71,6 +83,7 @@ function Player:update(dt)
     self:syncPhysics()
     self:move(dt)
     self:applyGravity(dt)
+    self:unTint(dt)
 end
 
 
@@ -210,11 +223,48 @@ end
 
 
 
+function Player:tintRed()
+    self.colour.green = 0
+    self.colour.blue = 0
+end
+
+function Player:unTint(dt)
+    self.colour.red = math.min(self.colour.red + self.colour.speed * dt, 1)
+    self.colour.green = math.min(self.colour.green + self.colour.speed * dt, 1)
+    self.colour.blue = math.min(self.colour.blue + self.colour.speed * dt, 1)
+end
+
+function Player:takeDamage(amount)
+    self:tintRed()
+    if self.health.current - amount > 0 then
+        self.health.current = self.health.current - amount
+    else
+        self.health.current = 0
+        self:die()
+    end
+end
+
+function Player:die()
+    self.alive = false
+end
+
+function Player:respawn()
+    if not self.alive then
+        self.physics.body:setPosition(self.startX, self.startY)
+        self.health.current = self.health.max
+        self.alive = true
+    end
+end
+
+
+
 
 function Player:draw()
     local scaleX = 1
     if self.direction == "left" then
         scaleX = -1
     end
+    love.graphics.setColor(self.colour.red, self.colour.green, self.colour.blue)
     love.graphics.draw(self.animation.draw, self.x, self.y, 0, scaleX, 1, self.animation.width / 2, self.animation.height / 2)
+    love.graphics.setColor(1,1,1,1)
 end
