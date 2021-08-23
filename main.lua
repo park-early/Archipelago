@@ -4,6 +4,7 @@ local Player = require("player")
 local Coin = require("coin")
 local GUI = require("gui")
 local Spike = require("spike")
+local Camera = require("camera")
 
 function love.load()
     Map = STI("map/1.lua", {"box2d"})
@@ -11,6 +12,7 @@ function love.load()
     World:setCallbacks(beginContact, endContact)
     Map:box2d_init(World)
     Map.layers.solid.visible = false
+    MapWidth = Map.layers.ground.width * 16
     background1 = love.graphics.newImage("assets/bg_tilesets/SET1_bakcground_night1.png")
     background2 = love.graphics.newImage("assets/bg_tilesets/SET1_bakcground_night2.png")
     background3 = love.graphics.newImage("assets/bg_tilesets/SET1_bakcground_night3.png")
@@ -30,6 +32,7 @@ function love.update(dt)
     Coin:updateAll(dt)
     Spike:updateAll(dt)
     GUI:update(dt)
+    Camera:setPosition(Player.x, 0)
 end
 
 
@@ -38,15 +41,14 @@ function love.draw()
     love.graphics.draw(background1, 0, 0, 0, 2, 2)
     love.graphics.draw(background2, 0, 0, 0, 2, 2)
     love.graphics.draw(background3, 0, 0, 0, 2, 2)
-    Map:draw(0, 0, 2, 2)
-    love.graphics.push()
-    love.graphics.scale(2, 2)
+    Map:draw(-Camera.x, -Camera.y, Camera.scale, Camera.scale)
 
+    Camera:apply()
     Player:draw()
     Coin.drawAll()
     Spike.drawAll()
+    Camera:clear()
 
-    love.graphics.pop()
     GUI:draw()
 end
 
