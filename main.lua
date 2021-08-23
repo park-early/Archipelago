@@ -4,11 +4,12 @@ local Player = require("player")
 local Coin = require("coin")
 local GUI = require("gui")
 local Spike = require("spike")
+local Block = require("block")
 local Camera = require("camera")
 
 function love.load()
     Map = STI("map/1.lua", {"box2d"})
-    World = love.physics.newWorld(0,0)
+    World = love.physics.newWorld(0,2000)
     World:setCallbacks(beginContact, endContact)
     Map:box2d_init(World)
     Map.layers.solid.visible = false
@@ -22,6 +23,7 @@ function love.load()
     Coin.new(400, 200)
     Coin.new(500, 200)
     Spike.new(200, 325)
+    Block.new(300, 150)
 end
 
 
@@ -31,6 +33,7 @@ function love.update(dt)
     Player:update(dt)
     Coin:updateAll(dt)
     Spike:updateAll(dt)
+    Block:updateAll(dt)
     GUI:update(dt)
     Camera:setPosition(Player.x, 0)
 end
@@ -47,6 +50,7 @@ function love.draw()
     Player:draw()
     Coin.drawAll()
     Spike.drawAll()
+    Block:drawAll()
     Camera:clear()
 
     GUI:draw()
