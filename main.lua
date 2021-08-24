@@ -13,17 +13,14 @@ function love.load()
     World:setCallbacks(beginContact, endContact)
     Map:box2d_init(World)
     Map.layers.solid.visible = false
+    Map.layers.entity.visible = false
     MapWidth = Map.layers.ground.width * 16
     background1 = love.graphics.newImage("assets/bg_tilesets/SET1_bakcground_night1.png")
     background2 = love.graphics.newImage("assets/bg_tilesets/SET1_bakcground_night2.png")
     background3 = love.graphics.newImage("assets/bg_tilesets/SET1_bakcground_night3.png")
     GUI:load()
     Player:load()
-    Coin.new(300, 200)
-    Coin.new(400, 200)
-    Coin.new(500, 200)
-    Spike.new(200, 325)
-    Block.new(300, 150)
+    spawnEntities()
 end
 
 
@@ -72,4 +69,17 @@ end
 
 function endContact(a, b, collision)
     Player:endContact(a, b, collision)
+end
+
+
+function spawnEntities()
+    for i,v in ipairs(Map.layers.entity.objects) do
+        if v.type == "spike" then
+            Spike.new(v.x + v.width / 2, v.y + v.height / 2)
+        elseif v.type == "block" then
+            Block.new(v.x + v.width / 2, v.y + v.height / 2)
+        elseif v.type == "coin" then
+            Coin.new(v.x, v.y)
+        end
+    end
 end
