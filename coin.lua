@@ -92,5 +92,13 @@ function Coin:remove()
     end
 end
 
+function Coin.removeAll()
+    for i,v in ipairs(ActiveCoins) do
+        v.physics.body:destroy()
+    end
+
+    ActiveCoins = {}
+end
+
 
 return Coin

@@ -54,5 +54,13 @@ function Spike.beginContact(a, b, collision)
     end
 end
 
+function Spike.removeAll()
+    for i,v in ipairs(ActiveSpikes) do
+        v.physics.body:destroy()
+    end
+
+    ActiveSpikes = {}
+end
+
 
 return Spike
