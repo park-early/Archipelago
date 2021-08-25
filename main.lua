@@ -28,6 +28,7 @@ function love.update(dt)
     Block:updateAll(dt)
     Enemy:updateAll(dt)
     GUI:update(dt)
+    Map:update(dt)
     Camera:setPosition(Player.x, 0)
 end
 

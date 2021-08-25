@@ -4,6 +4,7 @@ local Coin = require("coin")
 local Spike = require("spike")
 local Block = require("block")
 local Enemy = require("enemy")
+local Player = require("player")
 
 function Map:load()
     self.currentLevel = 1
@@ -32,6 +33,7 @@ function Map:next()
     self:clean()
     self.currentLevel = self.currentLevel + 1
     self:init()
+    Player:resetPosition()
 end
 
 function Map:clean()
@@ -40,6 +42,12 @@ function Map:clean()
     Spike.removeAll()
     Block.removeAll()
     Enemy.removeAll()
+end
+
+function Map:update()
+    if Player.x > MapWidth - 16 then
+        self:next()
+    end
 end
 
 function Map:spawnEntities()
