@@ -22,7 +22,7 @@ function Map:init()
     self.entityLayer = self.level.layers.entity
 
     self.solidLayer.visible = false
-    self.solidLayer.visible = false
+    self.entityLayer.visible = false
     MapWidth = self.groundLayer.width * 16
 
     self:spawnEntities()
